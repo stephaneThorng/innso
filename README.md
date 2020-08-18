@@ -2,7 +2,7 @@
 
 ## Usage
 
-
+La collection postman est également disponible pour le testing : ​ https://github.com/stephaneThorng/innso/blob/master/Innso.postman_collection.json 
 
 L&#39;API devra permettra de réaliser le scénario suivant :
 
