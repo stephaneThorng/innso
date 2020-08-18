@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "b11504f4-2e58-40f3-8bfe-a57d4ee6863e",
+		"name": "Innso",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Create Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1395e63-e097-4ad0-a903-6a55e828d9aa",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"message_uuid_created\", jsonData.uuid);\r",
+							"postman.setEnvironmentVariable(\"dossier_uuid\", null);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"auteur\" : \"Jérémie Durand\",\r\n    \"contenu\" : \"« Bonjour, j’ai un problème avec mon nouveau téléphone\",\r\n    \"canal\" : \"SMS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Create DossierClient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b99e5676-982a-433d-8480-a9db05325b0a",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"message_uuid_created\", null);\r",
+							"postman.setEnvironmentVariable(\"dossier_uuid\", jsonData.uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message_uuid\" : \"{{message_uuid_created}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/dossier",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"dossier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Attacher Message au dossier",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99fc7784-d114-4345-8262-9a92488b2678",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"auteur\" : \"Sonia Valentin\",\r\n    \"contenu\" : \"Je suis Sonia, et je vais mettre tout en œuvre pour vous aider. Quel est le modèle de votre téléphone ?\",\r\n    \"canal\" : \"SMS\",\r\n    \"dossier_uuid\" : \"{{dossier_uuid}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - Update DossierClient",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uuid\" : \"{{dossier_uuid}}\",\r\n    \"reference\" : \"KA-18B6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/dossier",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"dossier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 - GetAll DossierClient",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/dossier",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"dossier"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
